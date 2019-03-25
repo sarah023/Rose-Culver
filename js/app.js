@@ -24,6 +24,7 @@ const pages = [
   }
 ];
 
+//tags
 const nextTag = document.querySelector('footer img.next');
 const previousTag = document.querySelector('footer img.previous');
 const randomTag = document.querySelector('footer img.random');
@@ -31,6 +32,7 @@ const outputTag = document.querySelector('h2');
 const circleTag = document.querySelector('section div.circle');
 const bodyTag = document.querySelector('body');
 
+//functions
 const next = () => {
   pageNumber = pageNumber + 1;
 
@@ -49,6 +51,12 @@ const previous = () => {
   updateSection();
 };
 
+const random = () => {
+  pageNumber = Math.floor(Math.random() * pages.length);
+
+  updateSection();
+};
+
 //update the section's content and style
 const updateSection = () => {
   outputTag.innerHTML = pages[pageNumber].copy;
@@ -56,10 +64,27 @@ const updateSection = () => {
   bodyTag.style.backgroundColor = pages[pageNumber].background;
 };
 
-//event listeners
+//'click' event listeners
 nextTag.addEventListener('click', () => {
   next();
 });
 previousTag.addEventListener('click', () => {
   previous();
+});
+randomTag.addEventListener('click', () => {
+  random();
+});
+
+//'keyup' event listener
+document.addEventListener('keyup', event => {
+  console.log(event);
+
+  //if ArrowRight pressed run next()
+  if (event.key == 'ArrowRight') {
+    next();
+  }
+  //if ArrowLeft pressed run previous()
+  if (event.key == 'ArrowLeft') {
+    previous();
+  }
 });
